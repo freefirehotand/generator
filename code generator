@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Generator & Verifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Code Generator & Verifier</h2>
+        <button onclick="generateCode()">Generate Code</button>
+        <p id="generatedCode"></p>
+        
+        <input type="text" id="userInput" placeholder="Enter Code">
+        <button onclick="verifyCode()">Verify</button>
+        <p id="resultMessage"></p>
+    </div>
+    
+    <script>
+        function generateCode() {
+            let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = '';
+            for (let i = 0; i < 6; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            localStorage.setItem('generatedCode', code);
+            document.getElementById('generatedCode').textContent = "Generated Code: " + code;
+        }
+
+        function verifyCode() {
+            let userCode = document.getElementById('userInput').value;
+            let correctCode = localStorage.getItem('generatedCode');
+            if (userCode === correctCode) {
+                document.getElementById('resultMessage').textContent = "✅ Code is correct!";
+                document.getElementById('resultMessage').style.color = "green";
+            } else {
+                document.getElementById('resultMessage').textContent = "❌ Incorrect code. Try again.";
+                document.getElementById('resultMessage').style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
